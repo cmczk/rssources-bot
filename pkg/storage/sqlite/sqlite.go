@@ -3,8 +3,8 @@ package sqlite
 import (
 	"context"
 	"database/sql"
-	"fmt"
 
+	"github.com/cmczk/rssources-bot/lib/e"
 	"github.com/cmczk/rssources-bot/pkg/storage"
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -18,7 +18,7 @@ func New(url string) (*Storage, error) {
 
 	db, err := sql.Open("sqlite3", url)
 	if err != nil {
-		return nil, fmt.Errorf("%s: %w", op, err)
+		return nil, e.Wrap(op, err)
 	}
 
 	return &Storage{db: db}, nil
@@ -29,12 +29,12 @@ func (s *Storage) SaveUser(ctx context.Context, user *storage.User) error {
 
 	stmt, err := s.db.PrepareContext(ctx, `INSERT INTO users(id, name) VALUES (?, ?)`)
 	if err != nil {
-		return fmt.Errorf("%s: %w", op, err)
+		return e.Wrap(op, err)
 	}
 
 	_, err = stmt.ExecContext(ctx, user.ID, user.Name)
 	if err != nil {
-		return fmt.Errorf("%s: %w", op, err)
+		return e.Wrap(op, err)
 	}
 
 	return nil
@@ -49,12 +49,12 @@ func (s *Storage) AddResource(ctx context.Context, resource *storage.Resource) e
 		 VALUES (?, ?, ?)`,
 	)
 	if err != nil {
-		return fmt.Errorf("%s: %w", op, err)
+		return e.Wrap(op, err)
 	}
 
 	_, err = stmt.ExecContext(ctx, resource.Title, resource.URL, resource.UserID)
 	if err != nil {
-		return fmt.Errorf("%s: %w", op, err)
+		return e.Wrap(op, err)
 	}
 
 	return nil
@@ -65,12 +65,12 @@ func (s *Storage) DeleteUser(ctx context.Context, id int) error {
 
 	stmt, err := s.db.PrepareContext(ctx, `DELETE FROM users WHERE id = ?`)
 	if err != nil {
-		return fmt.Errorf("%s: %w", op, err)
+		return e.Wrap(op, err)
 	}
 
 	_, err = stmt.ExecContext(ctx, id)
 	if err != nil {
-		return fmt.Errorf("%s: %w", op, err)
+		return e.Wrap(op, err)
 	}
 
 	return nil
