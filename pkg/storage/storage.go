@@ -14,14 +14,12 @@ type User struct {
 }
 
 type Resource struct {
-	ID     int
 	Title  string
 	URL    string
 	UserID int
 }
 
 type Article struct {
-	ID          int
 	Title       string
 	Description string
 	URL         string
