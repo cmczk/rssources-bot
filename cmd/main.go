@@ -27,11 +27,11 @@ func main() {
 		log.Fatal("can't connect to db")
 	}
 
-	strg.SaveUser(ctx, firstUser)
-	strg.SaveUser(ctx, secondUser)
+	_ = strg.SaveUser(ctx, firstUser)
+	_ = strg.SaveUser(ctx, secondUser)
 
-	strg.AddResource(ctx, firstResource)
-	strg.AddResource(ctx, secondResource)
+	_ = strg.AddResource(ctx, firstResource)
+	_ = strg.AddResource(ctx, secondResource)
 
 	// bot, err := telego.NewBot(t, telego.WithDefaultDebugLogger())
 	// if err != nil {
