@@ -1,4 +1,4 @@
-## Технологии
+## Technologies
 
 - [grammy](https://github.com/grammyjs/grammY)
 - [sqlite](https://sqlite.org/)
@@ -9,8 +9,15 @@
 ### Commands
 
 - `start`
-- `help` (TODO)
-- `save_rssource` (TODO)
-- `get_rssources` (TODO)
-- `delete_rssource` (TODO)
-- `find_rss` (TODO)
+- `help`
+- `save_rssource`
+- `get_rssources`
+- `delete_rssource`
+- `find_rss`
+
+## TODO
+
+- implement `get_rssources` command
+- implement `delete_rssource` command
+- implement `help` command (write text message)
+- implement `find_rss` functionality
