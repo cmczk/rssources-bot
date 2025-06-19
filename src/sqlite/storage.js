@@ -1,13 +1,13 @@
 import { DatabaseSync } from 'node:sqlite'
 
 export const storage = new DatabaseSync(
-  `${import.meta.dirname}/rssources_bot.db`
+  `${import.meta.dirname}/rssources_bot.db`,
 )
 
 const initialSql = `
 CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY
-  , tg_id INTEGER NOT NULL
+  , tg_id INTEGER NOT NULL UNIQUE 
   , username TEXT NOT NULL UNIQUE
   , created_at INTEGER NOT NULL
 );

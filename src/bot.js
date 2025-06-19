@@ -1,6 +1,6 @@
 import 'dotenv/config'
 import { Bot } from 'grammy'
-import { storage } from './sqlite/storage.js'
+import { startBot } from './commands/start.js'
 
 const botApiKey = process.env.BOT_API_KEY
 
@@ -12,7 +12,7 @@ if (!botApiKey) {
 const bot = new Bot(botApiKey)
 
 bot.command('start', (ctx) => {
-  ctx.reply('Hello, world!')
+  startBot(ctx)
 })
 
 bot.start()

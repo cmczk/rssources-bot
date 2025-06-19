@@ -2,13 +2,21 @@ import { storage } from './storage.js'
 
 export const createUser = storage.prepare(`
 INSERT INTO
-  users (username, created_at)
+  users (tg_id, username, created_at)
 VALUES
-  (?, datetime('now'));  
+  (?, ?, datetime('now'))
+RETURNING
+  username;
+`)
+
+export const getUserByTgId = storage.prepare(`
+SELECT username
+FROM users
+WHERE tg_id = ?  
 `)
 
 export const deleteUser = storage.prepare(`
-DELETE FROM users WHERE id = ?;  
+DELETE FROM users WHERE tg_id = ?;  
 `)
 
 export const createRssource = storage.prepare(`
