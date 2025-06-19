@@ -1,19 +1,13 @@
 import { createRssource, getRssource } from '../sqlite/repository.js'
-import { Rssource } from '../services/ai/rssource.js'
 
 /**
  * @param {import('grammy').Context} ctx
- * @param {Rssource} rssource
+ * @param {import('../services/ai/rssource.js').Rssource} rssource
  */
 export const saveRssource = async (ctx, rssource) => {
-  console.log(rssource.url)
-  console.log(ctx.from.id)
-
   const exRssource = getRssource.get(ctx.from.id, rssource.url)
 
-  console.log(`EXRSS: ${exRssource.title}`)
-
-  if (!!exRssource) {
+  if (exRssource) {
     await ctx.reply('Вы уже сохраняли такой ресурс.')
     return
   }
@@ -25,8 +19,6 @@ export const saveRssource = async (ctx, rssource) => {
     rssource.tag,
     rssource.url,
   )
-
-  console.log(`NEWRSS: ${exRssource}`)
 
   await ctx.reply(`Ресурс ${newRssource.title} сохранён!`)
 }

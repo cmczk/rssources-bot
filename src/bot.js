@@ -7,7 +7,7 @@ import { parseMessageToRssource } from './services/ai/mistral.js'
 const botApiKey = process.env.BOT_API_KEY
 
 if (!botApiKey) {
-  console.error('BOT_API_KEY is not avalable')
+  console.error('BOT_API_KEY is not avalable.')
   process.exit(1)
 }
 

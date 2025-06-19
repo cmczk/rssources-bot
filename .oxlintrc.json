@@ -1,0 +1,14 @@
+{
+  "env": {
+    "node": true
+  },
+  "rules": {
+    "no-console": ["error", { "allow": ["error"] }],
+    "no-unused-vars": "error",
+    "no-undef": "error",
+    "func-style": ["error", "expression"],
+    "eqeqeq": "error",
+    "curly": "error",
+    "no-eval": "error"
+  }
+}

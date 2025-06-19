@@ -24,7 +24,7 @@ const saveUser = (ctx) => {
 export const startBot = async (ctx) => {
   const exUsername = getUserByTgId.get(ctx.from.id)
 
-  if (!!exUsername) {
+  if (exUsername) {
     await ctx.reply('Вы уже зарегистрированы!')
     return
   }
