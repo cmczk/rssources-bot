@@ -2,6 +2,7 @@
 
 - [grammy](https://github.com/grammyjs/grammY)
 - [sqlite](https://sqlite.org/)
+- [mistral](https://docs.mistral.ai/)
 
 ## Возможности бота
 
