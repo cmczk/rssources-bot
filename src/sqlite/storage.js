@@ -7,6 +7,7 @@ export const storage = new DatabaseSync(
 const initialSql = `
 CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY
+  , tg_id INTEGER NOT NULL
   , username TEXT NOT NULL UNIQUE
   , created_at INTEGER NOT NULL
 );
@@ -20,7 +21,7 @@ CREATE TABLE IF NOT EXISTS rssources (
   , created_at INTEGER NOT NULL
   , updated_at INTEGER NOT NULL
 
-  , FOREIGN KEY (rssources_owner) REFERENCES users (id)
+  , FOREIGN KEY (rssources_owner) REFERENCES users (tg_id) ON DELETE CASCADE
 );
 `
 
