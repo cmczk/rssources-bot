@@ -4,9 +4,9 @@
 - [sqlite](https://sqlite.org/)
 - [mistral](https://docs.mistral.ai/)
 
-## Возможности бота
+## Capabilities of the RSSources bot
 
-### Команды
+### Commands
 
 - `start`
 - `help` (TODO)

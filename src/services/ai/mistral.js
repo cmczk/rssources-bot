@@ -10,13 +10,17 @@ if (!mistralApiKey) {
 
 const client = new Mistral({ apiKey: mistralApiKey })
 
+/**
+ * @param {string} message
+ * @returns {Rssource}
+ */
 export const parseMessageToRssource = async (message) => {
   const response = await client.chat.parse({
     model: 'mistral-small-latest',
     messages: [
       {
         role: 'system',
-        content: 'Extract the books information.',
+        content: 'Extract the resource information from the user message.',
       },
       {
         role: 'user',
@@ -28,5 +32,5 @@ export const parseMessageToRssource = async (message) => {
     temperature: 0,
   })
 
-  return response.choices[0]?.message?.parsed
+  return response.choices[0].message.parsed
 }

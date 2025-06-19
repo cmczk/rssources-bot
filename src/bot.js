@@ -1,6 +1,8 @@
 import 'dotenv/config'
 import { Bot } from 'grammy'
 import { startBot } from './commands/start.js'
+import { saveRssource } from './commands/save-rssource.js'
+import { parseMessageToRssource } from './services/ai/mistral.js'
 
 const botApiKey = process.env.BOT_API_KEY
 
@@ -11,8 +13,30 @@ if (!botApiKey) {
 
 const bot = new Bot(botApiKey)
 
+let state = {
+  addingRssource: false,
+}
+
 bot.command('start', (ctx) => {
   startBot(ctx)
+})
+
+bot.command('save_rssource', (ctx) => {
+  ctx.reply('Пришлите описание ресурса, который вы хотите сохранить:')
+  state.addingRssource = true
+  setTimeout(() => {
+    state.addingRssource = false
+  }, 300_000)
+})
+
+bot.on('message', async (ctx) => {
+  if (state.addingRssource) {
+    const parsedRssource = await parseMessageToRssource(ctx.message.text)
+    await saveRssource(ctx, parsedRssource)
+    state.addingRssource = false
+  } else {
+    ctx.reply("I don't know what you mean...")
+  }
 })
 
 bot.start()

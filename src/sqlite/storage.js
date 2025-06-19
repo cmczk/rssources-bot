@@ -13,9 +13,10 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 CREATE TABLE IF NOT EXISTS rssources (
-    id TEXT PRIMARY KEY
+    id INTEGER PRIMARY KEY
   , rssources_owner INTEGER NOT NULL 
   , title TEXT NOT NULL
+  , description TEXT
   , tag TEXT NOT NULL
   , url TEXT NOT NULL
   , created_at INTEGER NOT NULL

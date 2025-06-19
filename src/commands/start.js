@@ -5,8 +5,8 @@ const welcomeMessage = `Hello, user!`
 /**
  * @param {import('grammy').Context} ctx
  */
-const sayHi = (ctx) => {
-  ctx.reply(welcomeMessage)
+const sayHi = async (ctx) => {
+  await ctx.reply(welcomeMessage)
 }
 
 /**
@@ -21,15 +21,15 @@ const saveUser = (ctx) => {
 /**
  * @param {import('grammy').Context} ctx
  */
-export const startBot = (ctx) => {
+export const startBot = async (ctx) => {
   const exUsername = getUserByTgId.get(ctx.from.id)
 
-  if (exUsername) {
-    ctx.reply('Вы уже зарегистрированы!')
+  if (!!exUsername) {
+    await ctx.reply('Вы уже зарегистрированы!')
     return
   }
 
   sayHi(ctx)
   const { username } = saveUser(ctx)
-  ctx.reply(`You have been saved, ${username}!`)
+  await ctx.reply(`You have been saved, ${username}!`)
 }
