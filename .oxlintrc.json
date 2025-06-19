@@ -6,6 +6,8 @@
     "no-console": ["error", { "allow": ["error"] }],
     "no-unused-vars": "error",
     "no-undef": "error",
+    "no-undefined": "error",
+    "import/no-default-export": "error",
     "func-style": ["error", "expression"],
     "eqeqeq": "error",
     "curly": "error",

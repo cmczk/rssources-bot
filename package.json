@@ -14,7 +14,8 @@
   "dependencies": {
     "@mistralai/mistralai": "^1.7.2",
     "dotenv": "^16.5.0",
-    "grammy": "^1.36.3"
+    "grammy": "^1.36.3",
+    "rss-parser": "^3.13.0"
   },
   "devDependencies": {
     "oxlint": "^1.2.0"
