@@ -1,4 +1,5 @@
 import { Mistral } from '@mistralai/mistralai'
+import { Rssource } from './rssource.js'
 
 const mistralApiKey = process.env.MISTRAL_API_KEY
 
@@ -9,19 +10,23 @@ if (!mistralApiKey) {
 
 const client = new Mistral({ apiKey: mistralApiKey })
 
-const chatResponse = await client.chat.parse({
-  model: 'ministral-8b-latest',
-  messages: [
-    {
-      role: 'system',
-      content: 'Extract the books information.',
-    },
-    {
-      role: 'user',
-      content: "I recently read 'To Kill a Mockingbird' by Harper Lee.",
-    },
-  ],
-  responseFormat: Book,
-  maxTokens: 256,
-  temperature: 0,
-})
+export const parseMessageToRssource = async (message) => {
+  const response = await client.chat.parse({
+    model: 'mistral-small-latest',
+    messages: [
+      {
+        role: 'system',
+        content: 'Extract the books information.',
+      },
+      {
+        role: 'user',
+        content: message,
+      },
+    ],
+    responseFormat: Rssource,
+    maxTokens: 256,
+    temperature: 0,
+  })
+
+  return response.choices[0]?.message?.parsed
+}
