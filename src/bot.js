@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import { Bot } from 'grammy'
+import { Bot, GrammyError, HttpError } from 'grammy'
 import { startBot } from './commands/start.js'
 import { saveRssource } from './commands/save-rssource.js'
 import { parseMessageToRssource } from './services/ai/mistral.js'
@@ -36,6 +36,19 @@ bot.on('message', async (ctx) => {
     state.addingRssource = false
   } else {
     ctx.reply("I don't know what you mean...")
+  }
+})
+
+bot.catch((err) => {
+  const ctx = err.ctx
+  console.error(`Ошибка при обработке обновления ${ctx.update.update_id}:`)
+  const e = err.error
+  if (e instanceof GrammyError) {
+    console.error('Ошибка в запросе:', e.description)
+  } else if (e instanceof HttpError) {
+    console.error('Не удалось связаться с Telegram:', e)
+  } else {
+    console.error('Неизвестная ошибка:', e)
   }
 })
 

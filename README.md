@@ -25,3 +25,4 @@
   - user write resource title - bot checks some site and proposes save rss-link
 - create table for articles
 - create function to get latest articles
+- write system prompt
