@@ -11,6 +11,12 @@
     "func-style": ["error", "expression"],
     "eqeqeq": "error",
     "curly": "error",
-    "no-eval": "error"
+    "no-eval": "error",
+    "eslint/no-await-in-loop": "error",
+    "oxc/no-accumulating-spread": "error",
+    "unicorn/prefer-array-find": "error",
+    "eslint/default-case": "error",
+    "no-empty": "error",
+    "no-empty-function": "error"
   }
 }
