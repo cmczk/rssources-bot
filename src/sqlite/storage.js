@@ -8,7 +8,7 @@ const initialSql = `
 CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY
   , tg_id INTEGER NOT NULL UNIQUE 
-  , username TEXT NOT NULL UNIQUE
+  , username TEXT NOT NULL
   , created_at INTEGER NOT NULL
 );
 
@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS rssources (
 
 CREATE TABLE IF NOT EXISTS articles (
     id INTEGER PRIMARY KEY
+  , user_id INTEGER NOT NULL
   , rssource_id INTEGER NOT NULL 
   , title TEXT NOT NULL
   , description TEXT
@@ -33,6 +34,7 @@ CREATE TABLE IF NOT EXISTS articles (
   , pub_date INTEGER
   , created_at INTEGER NOT NULL
 
+  , FOREIGN KEY (user_id) REFERENCES users (tg_id) ON DELETE CASCADE
   , FOREIGN KEY (rssource_id) REFERENCES rssources (id) ON DELETE CASCADE
 );
 `

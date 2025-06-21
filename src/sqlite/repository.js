@@ -57,3 +57,24 @@ INSERT INTO
 VALUES
   (?, ?, ?, ?, ?, datetime('now')); 
 `)
+
+export const getLatestArticleInfo = storage.prepare(`
+WITH latest_date AS
+(
+  SELECT user_id, rssource_id, MAX(pub_date) AS pub_date
+  FROM articles
+  GROUP BY user_id, rssource_id
+)
+
+SELECT
+    la.user_id AS tg_id
+  , r.title AS rss_title
+  , r.url AS rss_url
+  , la.pub_date AS art_pub_date
+FROM
+  latest_articles as la
+INNER JOIN
+  rssources as r
+ON
+  la.rssource_id = r.id
+`)

@@ -23,6 +23,7 @@
 - implement `find_rss` functionality
   - check sites (aggregators?)
   - user write resource title - bot checks some site and proposes save rss-link
-- create table for articles
 - create function to get latest articles
+- create function to get latest article in db
 - write system prompt
+- select frequency of messages
