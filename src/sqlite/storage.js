@@ -5,37 +5,37 @@ export const storage = new DatabaseSync(
 )
 
 const initialSql = `
-CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY
-  , tg_id INTEGER NOT NULL UNIQUE 
-  , username TEXT NOT NULL
-  , created_at INTEGER NOT NULL
+create table if not exists users (
+    id integer primary key
+  , tg_id integer not null unique 
+  , username text not null
+  , created_at text not null
 );
 
-CREATE TABLE IF NOT EXISTS rssources (
-    id INTEGER PRIMARY KEY
-  , rssources_owner INTEGER NOT NULL 
-  , title TEXT NOT NULL
-  , description TEXT
-  , tag TEXT NOT NULL
-  , url TEXT NOT NULL
-  , created_at INTEGER NOT NULL
+create table if not exists rssources (
+    id integer primary key
+  , rssources_owner integer not null 
+  , title text not null
+  , description text
+  , tag text not null
+  , url text not null
+  , created_at text not null
 
-  , FOREIGN KEY (rssources_owner) REFERENCES users (tg_id) ON DELETE CASCADE
+  , foreign key (rssources_owner) references users (tg_id) on delete cascade
 );
 
-CREATE TABLE IF NOT EXISTS articles (
-    id INTEGER PRIMARY KEY
-  , user_id INTEGER NOT NULL
-  , rssource_id INTEGER NOT NULL 
-  , title TEXT NOT NULL
-  , description TEXT
-  , url TEXT NOT NULL
-  , pub_date INTEGER
-  , created_at INTEGER NOT NULL
+create table if not exists articles (
+    id integer primary key
+  , user_id integer not null
+  , rssource_id integer not null 
+  , title text not null
+  , description text
+  , url text not null
+  , pub_date text not null
+  , created_at text not null
 
-  , FOREIGN KEY (user_id) REFERENCES users (tg_id) ON DELETE CASCADE
-  , FOREIGN KEY (rssource_id) REFERENCES rssources (id) ON DELETE CASCADE
+  , foreign key (user_id) references users (tg_id) on delete cascade
+  , foreign key (rssource_id) references rssources (id) on delete cascade
 );
 `
 
