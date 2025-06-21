@@ -1,8 +1,10 @@
 import 'dotenv/config'
+
 import { Bot, GrammyError, HttpError } from 'grammy'
+import { conversations, createConversation } from '@grammyjs/conversations'
+
 import { startBot } from './commands/start.js'
-import { saveRssource } from './commands/save-rssource.js'
-import { parseMessageToRssource } from './services/ai/mistral.js'
+import { saveRssourceConversation } from './conversations/save-rssource.js'
 
 const botApiKey = process.env.BOT_API_KEY
 
@@ -13,42 +15,31 @@ if (!botApiKey) {
 
 const bot = new Bot(botApiKey)
 
-let state = {
-  addingRssource: false,
-}
+bot.use(conversations())
+bot.use(createConversation(saveRssourceConversation))
 
 bot.command('start', (ctx) => {
   startBot(ctx)
 })
 
-bot.command('save_rssource', (ctx) => {
-  ctx.reply('Пришлите описание ресурса, который вы хотите сохранить:')
-  state.addingRssource = true
-  setTimeout(() => {
-    state.addingRssource = false
-  }, 300_000)
+bot.command('save_rssource', async (ctx) => {
+  await ctx.conversation.enter('saveRssourceConversation')
 })
 
 bot.on('message', async (ctx) => {
-  if (state.addingRssource) {
-    const parsedRssource = await parseMessageToRssource(ctx.message.text)
-    await saveRssource(ctx, parsedRssource)
-    state.addingRssource = false
-  } else {
-    ctx.reply("I don't know what you mean...")
-  }
+  ctx.reply("I don't know what you mean...")
 })
 
 bot.catch((err) => {
   const ctx = err.ctx
-  console.error(`Ошибка при обработке обновления ${ctx.update.update_id}:`)
+  console.error(`Error while handling an update ${ctx.update.update_id}:`)
   const e = err.error
   if (e instanceof GrammyError) {
-    console.error('Ошибка в запросе:', e.description)
+    console.error('Request error:', e.description)
   } else if (e instanceof HttpError) {
     console.error('Не удалось связаться с Telegram:', e)
   } else {
-    console.error('Неизвестная ошибка:', e)
+    console.error('Unknown error:', e)
   }
 })
 
