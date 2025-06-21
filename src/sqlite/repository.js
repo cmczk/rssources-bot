@@ -21,9 +21,9 @@ DELETE FROM users WHERE tg_id = ?;
 
 export const createRssource = storage.prepare(`
 INSERT INTO
-  rssources (rssources_owner, title, description, tag, url, created_at, updated_at)
+  rssources (rssources_owner, title, description, tag, url, created_at)
 VALUES
-  (?, ?, ?, ?, ?, datetime('now'), datetime('now'))
+  (?, ?, ?, ?, ?, datetime('now'))
 RETURNING
   title, description, tag, url;
 `)
@@ -49,4 +49,11 @@ LIMIT 1;
 
 export const deleteRssource = storage.prepare(`
 DELETE FROM rssources WHERE rssources_owner = ? AND url = ?;  
+`)
+
+export const createArticle = storage.prepare(`
+INSERT INTO
+  articles (rssource_id, title, description, url, pub_date, created_at)
+VALUES
+  (?, ?, ?, ?, ?, datetime('now')); 
 `)

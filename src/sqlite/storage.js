@@ -20,9 +20,20 @@ CREATE TABLE IF NOT EXISTS rssources (
   , tag TEXT NOT NULL
   , url TEXT NOT NULL
   , created_at INTEGER NOT NULL
-  , updated_at INTEGER NOT NULL
 
   , FOREIGN KEY (rssources_owner) REFERENCES users (tg_id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS articles (
+    id INTEGER PRIMARY KEY
+  , rssource_id INTEGER NOT NULL 
+  , title TEXT NOT NULL
+  , description TEXT
+  , url TEXT NOT NULL
+  , pub_date INTEGER
+  , created_at INTEGER NOT NULL
+
+  , FOREIGN KEY (rssource_id) REFERENCES rssources (id) ON DELETE CASCADE
 );
 `
 
