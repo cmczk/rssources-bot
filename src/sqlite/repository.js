@@ -12,11 +12,11 @@ returning
 export const getUserByTgId = storage.prepare(`
 select username
 from users
-where tg_id = ?  
+where tg_id = ?
 `)
 
 export const deleteUser = storage.prepare(`
-delete from users where tg_id = ?;  
+delete from users where tg_id = ?;
 `)
 
 export const createRssource = storage.prepare(`
@@ -48,14 +48,14 @@ limit 1;
 `)
 
 export const deleteRssource = storage.prepare(`
-delete from rssources where rssources_owner = ? and url = ?;  
+delete from rssources where rssources_owner = ? and url = ?;
 `)
 
 export const createArticle = storage.prepare(`
 insert into
   articles (rssource_id, title, description, url, pub_date, created_at)
 values
-  (?, ?, ?, ?, ?, datetime('now')); 
+  (?, ?, ?, ?, ?, datetime('now'));
 `)
 
 export const getLatestArticleInfo = storage.prepare(`
